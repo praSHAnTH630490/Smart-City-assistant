@@ -1,191 +1,83 @@
+# 🌆 Streamlit Frontend — Sustainable Smart City Assistant AI
 
-# 🌇 Sustainable Smart City Assistant AI
-
-A **full-stack AI-powered assistant** built for the sustainable cities of the future.  
-It delivers intelligent city services like weather insights, urban policies, eco tips, and smart chat — powered by **FastAPI**, **Streamlit**, and the **IBM Granite Foundation Model** hosted on **Colab + Ngrok**.
-
-![Smart City Assistant](https://img.shields.io/badge/Powered%20By-FastAPI%20%7C%20IBM%20Granite-brightgreen)
-![Frontend](https://img.shields.io/badge/Frontend-Streamlit-orange)
-![Backend](https://img.shields.io/badge/Backend-FastAPI-blue)
-![License](https://img.shields.io/badge/License-MIT-blue)
-![Status](https://img.shields.io/badge/Status-Under_Development-yellow)
+This is the **frontend interface** for the Sustainable Smart City Assistant AI — built using **Streamlit** to provide users with an interactive dashboard that communicates with the FastAPI backend and IBM Granite model hosted via Colab.
 
 ---
 
-## 🚀 Project Overview
+## 🎯 Purpose
 
-The **Sustainable Smart City Assistant** is designed to help citizens and tourists:
+This frontend allows users to:
+- Chat with an AI assistant
+- View smart city data (climate, air quality, safety, etc.)
+- Get real-time weather reports and eco tips
+- Perform grammar and spelling correction
+- Use custom policy or forecast generators
 
-- 🧭 Navigate smarter  
-- 🌤️ Stay informed on climate and air quality  
-- 🛡️ Track crime and safety metrics  
-- 🌱 Receive sustainability and eco-friendly tips  
-- 💬 Talk to an intelligent assistant powered by **IBM Granite AI**
-
----
-
-## 🔑 Key Capabilities
-
-- ✅ **Live Weather Forecast & Air Quality**
-- 🛡️ **City Safety & Crime Stats**
-- 🏙️ **Must-See Place Recommender**
-- 🧠 **Conversational AI Chatbot**
-- 📝 **Grammar & Spelling Correction**
-- 📘 **Policy Generator & Checker**
-- 🍃 **Sustainability Tips & Awareness**
-- 🌐 **Seamless Frontend + Backend Integration**
+All functionality is powered by backend APIs served over a live URL.
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 How to Run Locally
 
-| Layer         | Tech Used                               |
-|---------------|------------------------------------------|
-| 💻 Frontend   | Streamlit, HTML/CSS (custom styling)     |
-| 🧠 Backend    | FastAPI, Python 3, Requests               |
-| 🤖 Model Host | Google Colab + Ngrok (IBM Granite Model) |
-| 🌐 API Comm.  | REST (JSON over HTTP)                    |
-| ☁️ Deployment | GitHub, Render                           |
-
----
-📁 Project Structure
-
-smart_city_assistant/
-├── backend/                          
-│   ├── main.py                       # FastAPI backend               
-│   ├── requirements.txt              # Backend Python dependencies
-│   ├── .env                          # Optional environment variables
-│   ├── .gitignore                    # Ignore venv, __pycache__, etc.
-│   └── README.md                     # Backend-specific documentation
-│
-├── frontend/                         # Streamlit frontend
-│   ├── app.py                        # Main Streamlit application
-│   ├── assets/                       # Images, icons, logos, animations, etc.
-│   ├── styles.css                    # Optional custom CSS for better UI
-│   ├── README.md                     # Frontend-specific documentation
-│
-├── model_colab/                      # Model hosting (IBM Granite on Colab)
-│   ├── granite_model_inference.ipynb # Colab notebook with ngrok serving
-│   └── model_config.json             # Any model-related prompt/config info
-│
-├── render.yaml                       # Deployment config for Render (backend)
-├── LICENSE                           # MIT License or similar
-├── README.md                         # Root README (project overview)
-└── .gitignore                        # Ignore venv, .ipynb_checkpoints, etc.
+### 🔧 1. Clone the Project & Navigate to `frontend/`
 
 
-📂 Description of Each Folder
-
-Folder/File          Purpose
-backend/FastAPI      server with endpoints that talk to the AI model via ngrok
-frontend/Streamlit   dashboard UI that communicates with FastAPI backend
-model_colab/Jupyter  notebook that hosts the IBM Granite model using ngrok
-render.yaml	         Tells Render.com how to deploy the backend
-README.md	         Overall project guide and documentation
-requirements.txt	 Lists backend or shared Python dependencies
-.gitignore	         Excludes venv folders, cache, large binaries from Git
-
-
-## 💡 Features in Action
-
-- 🔌 **Modular API**: Every feature is mapped to its own route in FastAPI.
-- 🔄 **Colab Integration**: The backend connects to your AI model via `/chat`.
-- 🌱 **Eco-Aware Intelligence**: Promotes responsible urban behavior.
-- 💬 **Natural Language Interface**: Ask questions in plain English.
-
----
-
-## 🧪 Quickstart (Local Setup)
-
-### 🔁 1. Clone the Repository
-
-```bash
 git clone https://github.com/praSHAnTH630490/Smart-City-assistant.git
-cd Smart-City-assistant/backend
+cd Smart-City-assistant/frontend
 
-🧱 2. Create & Activate Virtual Environment
+🧪 2. Create and Activate a Virtual Environment (optional but recommended)
 
 python -m venv venv
+venv\Scripts\activate  # On Windows
 
-venv\Scripts\activate        # On Windows
-# or
-source venv/bin/activate
-     # On Linux/Mac
-
-📦 3. Install Dependencies
+📦 3. Install Requirements
 
 pip install -r requirements.txt
+▶️ 4. Run the App
 
-🚀 4. Run FastAPI Server
+streamlit run streamlit_app.py
+Access it at: http://localhost:8501
 
-uvicorn main:app --reload
+🌐 Backend API Requirement
 
-Access it via:
+This app expects a publicly accessible FastAPI backend, deployed via Render or ngrok.
 
-👉 http://localhost:8000/docs (Swagger UI)
+In your streamlit_app.py, set:
 
-📡 API Endpoints
 
-Endpoint	            Description
-/chat	                AI chat assistant via IBM Granite
-/text-correction	    Fixes grammar & spelling
-/climate-update	        Real-time weather and air quality
-/place-recommendation	City travel & tourism suggestions
-/smartcity-data	        Urban data: crime, oxygen, traffic, etc.
-/policy-generator	    Draft city policies with AI
+API_URL = "https://your-backend-url.onrender.com"
+Or use st.secrets for safer API key management:
 
-All endpoints forward prompts to your Colab-hosted IBM Granite model using a secure ngrok URL.
 
-🌍 Deploying to Render
-📁 Add render.yaml
+import streamlit as st
+import requests
 
-services:
-  - type:           web
-    name:           smart-city-backend
-    env:            python
-    plan:           free
-    buildCommand:   pip install -r requirements.txt
-    startCommand:   uvicorn main:app --host 0.0.0.0 --port 10000
-    autoDeploy:     true
+API_URL = st.secrets["api_url"]
+Then set your secrets.toml in .streamlit/:
 
-🔧 Deploy in 1 Minute
+api_url = "https://smart-city-backend.onrender.com"
+📁 File Structure
 
-Push this project to GitHub
+frontend/
 
-Login to Render
+├── streamlit_app.py         # Main dashboard code
+├── styles.css               # Optional custom styling
+├── requirements.txt         # Required packages
+├── .streamlit/
+│   └── secrets.toml         # For securely storing backend URL or API keys
+└── README.md                # This file
 
-Click "New Web Service"
+📸 Preview (Optional GIF / Screenshot)
 
-Connect this GitHub repo
+Add a screenshot or GIF preview of your UI here
 
-Use the render.yaml file or paste build/start commands manually
+🤝 Author
 
-✅ Your backend is now live!
+Prashanth
 
-🔗 Useful Resources
-
-📚 FastAPI Docs
-
-🎨 Streamlit Docs
-
-🧠 IBM Granite AI
-
-🛰️ Ngrok
-
-☁️ Render Hosting
-
-👨‍💻 Author
-
-* Prashanth
-
-🔗 GitHub Profile
+🔗 GitHub
 
 📄 License
-This project is released under the MIT License.
-Feel free to explore, fork, contribute, and innovate 🚀
+This project is licensed under the MIT License.
 
-💡 Built for a greener, smarter, AI-powered city experience 🌍✨
-
-
----
-
+💡 Designed for smarter, safer, and more sustainable urban futures 🌍

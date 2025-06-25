@@ -1,8 +1,4 @@
-fastapi
-uvicorn
-pydantic
-requests
 streamlit
+requests
 pandas
-sqlalchemy
-dotenv
+altair
