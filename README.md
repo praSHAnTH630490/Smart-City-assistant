@@ -1,3 +1,5 @@
+![WhatsApp Image 2025-06-24 at 8 12 47 AM (1)](https://github.com/user-attachments/assets/f37a26b3-40d8-4daa-a352-8d4e02be9b70)
+![WhatsApp Image 2025-06-24 at 8 12 47 AM (1)](https://github.com/user-attachments/assets/246b718a-fc43-451d-b2c2-0d6cb5ee20a1)
 
 # 🌇 Sustainable Smart City Assistant AI
 
