@@ -5,3 +5,5 @@ requests
 streamlit
 pandas
 ibm-watson-ai
+python-dotenv
+
