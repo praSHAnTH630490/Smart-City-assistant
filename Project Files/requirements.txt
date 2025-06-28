@@ -1,9 +1,4 @@
-fastapi
-uvicorn
-pydantic
-requests
 streamlit
+requests
 pandas
-ibm-watsonx-ai
-sqlalchemy
 python-dotenv
