@@ -6,3 +6,4 @@ streamlit
 pandas
 ibm-watsonx-ai
 sqlalchemy
+python-dotenv
