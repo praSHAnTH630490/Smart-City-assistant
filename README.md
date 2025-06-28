@@ -4,7 +4,7 @@
 # 🌇 Sustainable Smart City Assistant AI
 ![WhatsApp Image 2025-06-24 at 8 12 47 AM (1)](https://github.com/user-attachments/assets/246b718a-fc43-451d-b2c2-0d6cb5ee20a1)
 A **full-stack AI-powered assistant** built for the sustainable cities of the future.  
-It delivers intelligent city services like weather insights, urban policies, eco tips, and smart chat — powered by **FastAPI**, **Streamlit**, and the **IBM Granite Foundation Model** hosted on **Colab + Ngrok**.
+It delivers intelligent city services like weather insights, urban policies, eco tips, and smart chat — powered by **FastAPI**, **Streamlit**, and the **IBM Granite Foundation Model** from **IBM Watson AI**
 
 ![Smart City Assistant](https://img.shields.io/badge/Powered%20By-FastAPI%20%7C%20IBM%20Granite-brightgreen)
 ![Frontend](https://img.shields.io/badge/Frontend-Streamlit-orange)
@@ -22,7 +22,7 @@ The **Sustainable Smart City Assistant** is designed to help citizens and touris
 - 🌤️ Stay informed on climate and air quality  
 - 🛡️ Track crime and safety metrics  
 - 🌱 Receive sustainability and eco-friendly tips  
-- 💬 Talk to an intelligent assistant powered by **IBM Granite AI**
+- 💬 Talk to an intelligent assistant powered by **IBM Granite LLM**
 
 ---
 
@@ -45,7 +45,7 @@ The **Sustainable Smart City Assistant** is designed to help citizens and touris
 |---------------|------------------------------------------|
 | 💻 Frontend   | Streamlit, HTML/CSS (custom styling)     |
 | 🧠 Backend    | FastAPI, Python 3, Requests               |
-| 🤖 Model Host | Google Colab + Ngrok (IBM Granite Model) |
+| 🤖 Model Host | IBM watson AI (IBM Granite Model) |
 | 🌐 API Comm.  | REST (JSON over HTTP)                    |
 | ☁️ Deployment | GitHub, Render                           |
 
@@ -66,10 +66,6 @@ smart_city_assistant/
 │   ├── styles.css                    # Optional custom CSS for better UI
 │   ├── README.md                     # Frontend-specific documentation
 │
-├── model_colab/                      # Model hosting (IBM Granite on Colab)
-│   ├── granite_model_inference.ipynb # Colab notebook with ngrok serving
-│   └── model_config.json             # Any model-related prompt/config info
-│
 ├── render.yaml                       # Deployment config for Render (backend)
 ├── LICENSE                           # MIT License or similar
 ├── README.md                         # Root README (project overview)
@@ -79,9 +75,8 @@ smart_city_assistant/
 📂 Description of Each Folder
 
 Folder/File          Purpose
-backend/FastAPI      server with endpoints that talk to the AI model via ngrok
+backend/FastAPI      server with endpoints that talk to the AI model via localhost
 frontend/Streamlit   dashboard UI that communicates with FastAPI backend
-model_colab/Jupyter  notebook that hosts the IBM Granite model using ngrok
 render.yaml	         Tells Render.com how to deploy the backend
 README.md	         Overall project guide and documentation
 requirements.txt	 Lists backend or shared Python dependencies
@@ -91,7 +86,7 @@ requirements.txt	 Lists backend or shared Python dependencies
 ## 💡 Features in Action
 
 - 🔌 **Modular API**: Every feature is mapped to its own route in FastAPI.
-- 🔄 **Colab Integration**: The backend connects to your AI model via `/chat`.
+- 🔄 **Model Integration**: The backend connects to your AI model via `/chat`.
 - 🌱 **Eco-Aware Intelligence**: Promotes responsible urban behavior.
 - 💬 **Natural Language Interface**: Ask questions in plain English.
 
