@@ -131,7 +131,7 @@ Endpoint	            Description
 /smartcity-data	        Urban data: crime, oxygen, traffic, etc.
 /policy-generator	    Draft city policies with AI
 
-All endpoints forward prompts to your Colab-hosted IBM Granite model using a secure ngrok URL.
+All endpoints forward prompts to your IBM watson model
 
 🌍 Deploying to Render
 📁 Add render.yaml
