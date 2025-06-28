@@ -175,7 +175,8 @@ Use the render.yaml file or paste build/start commands manually
 
 * Prashanth
 
-🔗 GitHub Profile
+🔗 https://github.com/praSHAnTH630490/Smart-City-assistant
+   app link : https://smart-city-assistant-1.onrender.com
 
 📄 License
 This project is released under the MIT License.
