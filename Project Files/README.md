@@ -2,7 +2,8 @@
 # 🌇 Sustainable Smart City Assistant AI
 
 A **full-stack AI-powered assistant** built for the sustainable cities of the future.  
-It delivers intelligent city services like weather insights, urban policies, eco tips, and smart chat — powered by **FastAPI**, **Streamlit**, and the **IBM Granite Foundation Model** hosted on **Colab + Ngrok**.
+It delivers intelligent city services like weather insights, urban policies, eco tips, and smart chat — powered by **FastAPI**, **Streamlit**, and the **IBM Granite Foundation Model** hosted on **IBM Watson AI**
+
 
 ![Smart City Assistant](https://img.shields.io/badge/Powered%20By-FastAPI%20%7C%20IBM%20Granite-brightgreen)
 ![Frontend](https://img.shields.io/badge/Frontend-Streamlit-orange)
