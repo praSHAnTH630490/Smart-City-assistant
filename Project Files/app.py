@@ -8,7 +8,7 @@ import pandas as pd
 import json
 
 # Base URL for FastAPI backend
-API_URL = os.getenv("API_BASE_URL", "http://localhost:8000")
+API_URL = os.getenv("API_BASE_URL")
 
 # Page config
 st.set_page_config(
