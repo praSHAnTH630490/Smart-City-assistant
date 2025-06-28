@@ -2,18 +2,40 @@ import os
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base
 from dotenv import load_dotenv
-import requests
+from ibm_watsonx_ai.foundation_models import ModelInference
+from ibm_watsonx_ai.foundation_models.utils.enums import DecodingMethods
+from ibm_watsonx_ai import Credentials
 import json
-# Load environment variables
-load_dotenv()
-COLAB_MODEL_API = os.getenv("COLAB_MODEL_API")  # e.g., https://xxxx.ngrok-free.app/chat
-DATABASE_URL = "sqlite:///./app.db"
 
-# Database setup
+# ✅ Load environment variables
+load_dotenv()
+api_key = os.getenv("WATSONX_API_KEY")
+project_id = os.getenv("WATSONX_PROJECT_ID")
+url = os.getenv("WATSONX_URL")
+
+# ✅ Granite model setup
+creds = Credentials(api_key=api_key, url=url)
+model = ModelInference(
+    model_id="ibm/granite-3-2b-instruct",
+    credentials=creds,
+    params={"decoding_method": DecodingMethods.GREEDY, "max_new_tokens": 50},
+    project_id=project_id
+)
+
+def call_model(prompt: str):
+    try:
+        response = model.generate(prompt=prompt)
+        return response.get("results", [{}])[0].get("generated_text", "No response")
+    except Exception as e:
+        raise HTTPException(status_code=503, detail=f"Granite model call failed: {e}")
+
+# ✅ Database setup
+DATABASE_URL = "sqlite:///./app.db"
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 Base = declarative_base()
@@ -26,7 +48,7 @@ class Feedback(Base):
 
 Base.metadata.create_all(bind=engine)
 
-# FastAPI app
+# ✅ FastAPI app
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -35,7 +57,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# DB Dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -43,7 +64,7 @@ def get_db():
     finally:
         db.close()
 
-# Models
+# ✅ Models
 class Prompt(BaseModel):
     prompt: str
 
@@ -61,16 +82,7 @@ class PolicyRequest(BaseModel):
 class AnomalyPayload(BaseModel):
     data: list[float]
 
-# Model call helper
-def call_model(prompt: str):
-    try:
-        response = requests.post(COLAB_MODEL_API, json={"prompt": prompt}, timeout=30)
-        response.raise_for_status()
-        return response.json().get("text", "No response")
-    except Exception as e:
-        raise HTTPException(status_code=503, detail=f"Model call failed: {e}")
-
-# Endpoints
+# ✅ Endpoints
 @app.post("/chat")
 def chat_endpoint(payload: Prompt):
     return {"response": call_model(payload.prompt)}
@@ -119,19 +131,16 @@ def city_updates(city: str):
         f"Give me the latest updates about {city}, including political developments, IT industry news, and local happenings. "
         "Respond in JSON format like: {\"description\": \"...\", \"temp\": 31}"
     )
-
     try:
         raw = call_model(prompt)
         try:
             parsed = json.loads(raw) if isinstance(raw, str) else raw
         except json.JSONDecodeError:
-            parsed = {"description": raw, "temp": None}  # fallback
-
+            parsed = {"description": raw, "temp": None}
         return {"updates": parsed}
-
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"AI error: {e}")
-    
+
 @app.get("/")
 def root():
-    return {"message": "Smart City Assistant Backend Running"}
+    return {"message": "Smart City Assistant Backend Running with Granite Model"}
